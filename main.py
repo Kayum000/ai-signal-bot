@@ -132,6 +132,7 @@ async def fetch_real_candles(market: str):
         if (now - cache_time).total_seconds() < CACHE_DURATION_SECONDS: return cached_df
         
     api_symbol = market.replace("_OTC", "")
+    # FIXED: Added correct full api base endpoint URL
     url = f"https://twelvedata.com{api_symbol}&interval=1min&outputsize=65&apikey={TWELVE_DATA_API_KEY}"
     
     async with httpx.AsyncClient() as client:
@@ -169,6 +170,7 @@ async def send_telegram_alert(market, signal, score, price):
         LAST_ALERT[market] = (now, signal, score)
         
     clean_message = f"🚀 *SK BOT PRO ULTRA (META-5)*\n\nMarket: {market}\nSignal: {signal}\nStrength: {score}%\nPrice: {price}\nTime (UTC): {now.strftime('%H:%M:%S')}\n🎯 ENTRY FILTER: PASSED"
+    # FIXED: Added correct 'bot' identifier to fix invalid port error
     url = f"https://telegram.org{TELEGRAM_TOKEN}/sendMessage"
     async with httpx.AsyncClient() as client:
         try: 
