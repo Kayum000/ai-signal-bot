@@ -1,4 +1,4 @@
-```python
+
 # SK BOT PRO FINAL - main.py
 # =============================================
 # 50 Strategies + 5 Meta-Filters
