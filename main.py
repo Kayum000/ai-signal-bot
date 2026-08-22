@@ -448,11 +448,34 @@ async def admin():
     </body></html>
     ''')
 
-if __name__ == "__main__":
-    import uvicorn
-    print("🚀 SK BOT PRO v3.0 Starting...")
-    print("📊 Admin: http://localhost:8000/admin")
-    uvicorn.run(app, host=HOST, port=PORT)
-```
+import uvicorn
+import sys
 
----
+# কনফিগারেশন
+HOST = "0.0.0.0"  # লোকালহোস্টের জন্য "127.0.0.1" ব্যবহার করুন
+PORT = 8000
+
+if __name__ == "__main__":
+    print("=" * 50)
+    print("🚀 SK BOT PRO v3.0 Starting...")
+    print(f"🌐 Server: http://{HOST}:{PORT}")
+    print(f"📊 Admin: http://localhost:{PORT}/admin")
+    print(f"📚 API Docs: http://localhost:{PORT}/docs")
+    print("=" * 50)
+    print("ℹ️  Press CTRL+C to stop the server")
+    print("=" * 50)
+    
+    try:
+        uvicorn.run(
+            app, 
+            host=HOST, 
+            port=PORT,
+            log_level="info",
+            access_log=True
+        )
+    except KeyboardInterrupt:
+        print("\n🛑 Server stopped successfully")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n❌ Server error: {e}")
+        sys.exit(1)
